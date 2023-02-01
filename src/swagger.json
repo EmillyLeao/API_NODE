@@ -93,7 +93,7 @@
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "task" : {
+                                "form" : {
                                     "type": "object",
                                     "$ref": "#/definitions/Form"
                                 } 
