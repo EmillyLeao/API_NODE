@@ -1,0 +1,212 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a simple NodeJS API project to retrieve and submit forms",
+        "version": "1.0.0",
+        "title": "Forms API",
+        "contact": {
+            "email": "emillyl.s@hotmail.com"
+        }
+    },
+    "schemes": ["http"],
+    "host": "localhost:3000",
+    "basePath": "/form/",
+    "paths" : {
+        "/allforms" : {
+            "get" : {
+                "summary" : "Get all forms",
+                "description": "Get all forms",
+                "produces": ["application/json"],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Form"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description":  "Invalid status value",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/createform" : {
+            "post" : {
+                "summary" : "Create a form",
+                "description": "Save form on database",
+                "produces": ["application/json"],
+                "consumes": ["application/json"],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "form object",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "form" : {
+                                    "type": "object",
+                                    "$ref": "#/definitions/Formpost"
+                                } 
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/ValidResponse"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description":  "Invalid status value",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/updateform" : {
+            "put" : {
+                "summary" : "Update the form",
+                "description": "Update the form",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Id of form that needs to be updated",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "task" : {
+                                    "type": "object",
+                                    "$ref": "#/definitions/Form"
+                                } 
+                            }
+                        }
+                    }
+
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/ValidResponse"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid status value",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/form/{id}" : {
+            "delete" : {
+                "summary" : "Delete Form",
+                "description": "Delete one form",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of form that needs to be deleted",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/ValidResponse"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description":  "Invalid status value",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                           
+                        }
+                    }
+                }
+            }
+        }
+    }, 
+    "definitions": {
+        "Form": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+               },
+               "firstname": {
+                   "type": "string"
+               },
+               "lastname": {
+                   "type": "string"
+               },
+               "email": {
+                   "type": "string"
+               }
+            }
+        },
+        "InvalidResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+
+        },
+        "ValidResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+
+        },
+
+        "Formpost": {
+            "type": "object",
+            "properties": {
+               "firstname": {
+                   "type": "string"
+               },
+               "lastname": {
+                   "type": "string"
+               },
+               "email": {
+                   "type": "string"
+               }
+            }
+
+        }
+    }
+}
